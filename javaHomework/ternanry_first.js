@@ -1,80 +1,65 @@
-function f() {
-    let a = Math.floor(Math.random() * 20) + 1;
-    console.log(`a = ${a}
-      `);
-  
-    let result = "";
-  
-    if (a > 10) {
-      result += "a is bigger than 10 ";
+let a = Math.floor(Math.random() * 100);
+let result;
+
+if (a > 10) {
+    if (a * 2 > 5) {
+      result = 2 * a + 1;
     } else {
-      result += "a is less than or equal to 10 ";
-      if (a === 5) {
-        result += "an example of a special case";
-      }
+      result = 5;
     }
-  
-    if (a === 15) {
-      result += "but a is not 15 ";
-    }
-  
-    if (a > 5) {
-      result += "and a is greater than 5 ";
+  } else {
+    if (a < 3) {
+      result = 2 * (a - 2);
     } else {
-      result += "and a is less than or equal to 5 ";
-    }
-  
-    if (a % 2) {
-      result += "and a is odd";
-    } else {
-      result += "and a is even";
-    }
-  
-    console.log(`if..else
-  Результат: ${result}
-  `);
-  
-      let resultSwitch = "";
-  
-      if (a > 10) {
-          resultSwitch += "a is bigger than 10 ";
+      if (a > 4) {
+        result = 5;
       } else {
-          resultSwitch += "a is less than or equal to 10 ";
-          switch (a) {
-              case 5:
-                  resultSwitch += "an example of a special case";
-                  break;
-              default:
-                  break;
-          }
+        if (a % 2 === 0) {
+          result = 6;
+        } else {
+          result = 7;
+        }
       }
-  
-      switch (a) {
-          case 15:
-              resultSwitch += "but a is not 15 ";
-              break;
-          default:
-              break;
-      }
-  
-      if (a > 5) {
-          resultSwitch += "and a is greater than 5 ";
-      } else {
-          resultSwitch += "and a is less than or equal to 5 ";
-      }
-  
-  
-      switch (a % 2) {
-          case 0:
-              resultSwitch += "and a is even";
-              break;
-          default:
-              resultSwitch += "and a is odd";
-              break;
-      }
-      console.log(`Switch
-  Результат: ${resultSwitch}`);
-  
+    }
   }
-  
-  f();
+
+if (a > 10) {
+    switch (true) {
+        case (a * 2 > 5):
+            result = 2 * a + 1;
+            break;
+        default:
+            result = 5;
+            break;
+    }
+} else {
+    switch (true) {
+        case (a < 3):
+            result = 2 * (a - 2);
+            break;
+        case (a > 4):
+            result = 5;
+            break;
+        default:
+            switch (a % 2) {
+                case 0:
+                    result = 6;
+                    break;
+                default:
+                    result = 7;
+                    break;
+            }
+            break;
+    }
+}
+console.log(`Тернаный оператор
+a: ${a} 
+Результат: ${(a > 10 ? a : a * 2) > 5 ? (2 * a) + 1 : (a < 3 ? 1 : 2 * (a - 2)) > 4 ? 5 : (a % 2 == 0 ? 6 : 7)}
+
+if...else
+a: ${a} 
+Результат: ${result}
+
+switch()
+a: ${a} 
+Результат: ${result}`);
