@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Posts</title>
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .user-list {
+            width: 20%;
+            padding: 10px;
+        }
+
+        .post-list {
+            width: 80%;
+            padding: 10px;
+        }
+
+        .user-item {
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .post-item {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+
+        .user-info {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="user-list" id="userList">
+        </div>
+        <div class="post-list" id="postList">
+        </div>
+    </div>
+
+    <script>
+
+        let users = [];
+        let posts = [];
+
+        const userListElement = document.getElementById('userList');
+        const postListElement = document.getElementById('postList');
+
+        userListElement.addEventListener('click', (event) => {
+            const userId = event.target.getAttribute('data-user-id');
+            if (userId) {
+                renderUserPosts(parseInt(userId));
+            }
+        });
+
+        function renderUserList(users) {
+            userListElement.innerHTML = users.map(user => `
+                <div class="user-item" data-user-id="${user.id}">
+                    ${user.name}
+                </div>
+            `).join('');
+        }
+
+        function renderUserPosts(userId) {
+
+            const user = users.find(user => user.id === userId);
+            const userPosts = posts.filter(post => post.userId === userId);
+
+            postListElement.innerHTML = `
+                <div class="user-info">
+                    <h2>${user.name}</h2>
+                    <p>Username: <strong>${user.username}</strong></p>
+                    <p>Email: <strong>${user.email}</strong></p>
+                    <p>Phone: <strong>${user.phone}</strong></p>
+                    <p>Website: <strong>${user.website}</strong></p>
+                    <p>Address: <strong>${user.address.street}, ${user.address.suite}, ${user.address.city}, ${user.address.zipcode}</strong></p>
+                    <p>Company: <strong>${user.company.name}</strong></p>
+                </div>
+                ${userPosts.map(post => `
+                    <div class="post-item">
+                        <h3>${post.title}</h3>
+                        <p>${post.body}</p>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        async function loadData(url) {
+            const response = await fetch(url);
+            return await response.json();
+        }
+
+        async function init() {
+            postListElement.innerHTML = '<p><strong>Выберите пользователя</strong></p>';
+            const [usersData, postsData] = await Promise.all([
+                loadData('https://jsonplaceholder.typicode.com/users'),
+                loadData('https://jsonplaceholder.typicode.com/posts')
+            ]);
+            users = usersData;
+            posts = postsData;
+            renderUserList(users);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>
