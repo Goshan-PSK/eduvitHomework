@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+}
+
+.user-list {
+  width: 20%;
+  padding: 10px;
+}
+
+.post-list {
+  width: 80%;
+  padding: 10px;
+}
+
+.user-item {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid lightgrey;
+}
+
+.post-item {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.user-info {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
