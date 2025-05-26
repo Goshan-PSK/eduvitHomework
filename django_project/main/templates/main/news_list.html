@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Все новости{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Все новости</h1>
+
+    <form class="mb-4" method="get">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Поиск новостей" name="q"
+                value="{{ query|default:'' }}">
+            <button class="btn btn-primary" type="submit">Поиск</button>
+        </div>
+    </form>
+
+    <div class="row">
+        {% for news in news_list %}
+        <div class="col-md-6">
+            <div class="card mb-4">
+                {% if news.image %}
+                <img src="{{ news.image.url }}" class="card-img-top" alt="{{ news.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ news.title }}</h5>
+                    <p class="card-text">{{ news.content|truncatewords:30 }}</p>
+                    <p class="text-muted">
+                        Автор: {{ news.author.username }}<br>
+                        {{ news.pub_date|date:"d.m.Y" }}
+                    </p>
+                    <a href="{% url 'news_detail' news.id %}" class="btn btn-primary">Читать</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Новости не найдены.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

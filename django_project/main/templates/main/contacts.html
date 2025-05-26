@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}О нас{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+
+            <!-- Вступление -->
+            <div class="mb-4 text-center">
+                <h1 class="section-title">О нас</h1>
+                <p class="lead">Мы — команда, увлечённая созданием качественного контента. Добро пожаловать!</p>
+            </div>
+
+            <!-- Контакты -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Контактная информация</h5>
+                    <p class="card-text">
+                        <i class="fas fa-envelope me-2"></i><strong>Email:</strong> hello@example.com<br>
+                        <i class="fas fa-phone me-2"></i><strong>Телефон:</strong> +7 (999) 123-45-67<br>
+                        <i class="fas fa-map-marker-alt me-2"></i><strong>Адрес:</strong> г. Москва, ул. Весёлая, д. 1
+                    </p>
+                </div>
+            </div>
+
+            <!-- Социальные сети -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Мы в соцсетях</h5>
+                    <p class="card-text">Подписывайтесь, чтобы быть в курсе всех новостей:</p>
+                    <a href="#" class="btn btn-outline-primary me-2">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                    <a href="#" class="btn btn-outline-primary me-2">
+                        <i class="fab fa-vk"></i> VKontakte
+                    </a>
+                    <a href="#" class="btn btn-outline-primary">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </a>
+                </div>
+            </div>
+
+            <!-- Информация о проекте -->
+            <div class="card mb-4 border-start-primary">
+                <div class="card-body">
+                    <h5 class="card-title">О проекте</h5>
+                    <p class="card-text">
+                        Мы делаем информационный ресурс, где каждый пользователь может делиться новостями, мыслями и
+                        статьями.
+                        У нас — свободная и творческая атмосфера.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Призыв к регистрации -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Хочешь стать автором?</h5>
+                    <p class="card-text">
+                        <a href="{% url 'register' %}">Зарегистрируйся</a> и начни публиковать свои собственные
+                        материалы прямо сейчас!
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

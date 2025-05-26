@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card mb-4">
+        {% if news.image %}
+        <img src="{{ news.image.url }}" class="card-img-top" alt="{{ news.title }}">
+        {% endif %}
+        
+        <div class="card-body">
+            <h1>{{ news.title }}</h1>
+            <p class="text-muted">
+                Автор: {{ news.author.username }}<br>
+                {{ news.pub_date|date:"d.m.Y" }}
+            </p>
+            <div class="mb-4">
+                {{ news.content|linebreaks }}
+            </div>
+        </div>
+    </div>
+
+    <h3>Комментарии</h3>
+
+    {% if user.is_authenticated %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <p>
+        <a href="{% url 'login' %}">Войдите</a> или 
+        <a href="{% url 'register' %}">зарегистрируйтесь</a> 
+        чтобы оставить комментарий.
+    </p>
+    {% endif %}
+
+    {% for comment in news.comments.all %}
+    <div class="card mb-2">
+        <div class="card-body">
+            <p class="card-text">{{ comment.text }}</p>
+            <p class="text-muted">
+                {{ comment.author.username }}, 
+                {{ comment.created_date|date:"d.m.Y" }}
+            </p>
+        </div>
+    </div>
+    {% empty %}
+    <p>Пока нет комментариев.</p>
+    {% endfor %}
+</div>
+{% endblock %} 
